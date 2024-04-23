@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <section>
+    <h1>Cursor hover description</h1>
+  </section>
+
+  <section class="hover-area" data-desc>
+    <h2>Hover area - Explore</h2>
+    <template data-desc-content>
+      <p>Explore</p>
+    </template>
+  </section>
+  <section class="hover-area" data-desc>
+    <h2>Hover area - View</h2>
+    <template data-desc-content>
+      <p>View</p>
+    </template>
+  </section>
+  <section class="hover-area" data-desc>
+    <h2>Hover area - icon</h2>
+    <template data-desc-content>
+      <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 1H19M19 1V7M19 1L12 8M7 19H1M1 19V13M1 19L8 12" stroke="white" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </template>
+  </section>
+  <section class="hover-area" data-desc>
+    <h2>Hover area - icon 2</h2>
+    <template data-desc-content>
+      <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 12H8M8 12V18M8 12L1 19M18 8H12M12 8V2M12 8L19 1" stroke="white" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </template>
+  </section>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
