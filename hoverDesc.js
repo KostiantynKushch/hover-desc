@@ -67,6 +67,8 @@ export default class HoverDesc {
    * method to update position of the HoverDesc element
    */
   #updateDescPosition() {
+    this.positionX = this.cursorX + this.leftShift + window.scrollX;
+    this.positionY = this.cursorY + this.topShift + window.scrollY;
     this.desc.style.transform = `translate(${this.positionX}px, ${this.positionY}px)`;
   }
 
@@ -110,8 +112,6 @@ export default class HoverDesc {
   #handleMouseMove(e) {
     this.cursorX = e.clientX;
     this.cursorY = e.clientY;
-    this.positionX = e.clientX + this.leftShift + window.scrollX;
-    this.positionY = e.clientY + this.topShift + window.scrollY;
     this.#updateDescPosition();
   }
 
@@ -119,8 +119,6 @@ export default class HoverDesc {
    * event handler for updating the position and visibility of the HoverDesc element of scroll
    */
   #handleScroll() {
-    this.positionX = this.cursorX + this.leftShift + window.scrollX;
-    this.positionY = this.cursorY + this.topShift + window.scrollY;
     this.#updateDescPosition();
 
     // update visibility of the descContent
