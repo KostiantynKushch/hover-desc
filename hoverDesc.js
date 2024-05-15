@@ -1,3 +1,5 @@
+import debounce from './debounce';
+
 export default class HoverDesc {
   descId = 'desc'; //id of the element under cursor
   descContentId = 'descContent'; //id of the element content
@@ -12,6 +14,8 @@ export default class HoverDesc {
   width = 90; //width of HoverDesc element
   height = 90; //height of HoverDesc element
   isVisible = false; //visibility variable for optimization check
+
+  #isTouchDevice = false; //return marker for handlers in case of touch devices
 
   constructor({ width, height, descId, descContentId } = {}) {
     // reassign default variables
@@ -33,8 +37,23 @@ export default class HoverDesc {
     document.addEventListener('mouseover', (e) => this.#handleMouseEnter(e));
     document.addEventListener('mouseout', (e) => this.#handleMouseLeave(e));
     document.addEventListener('scroll', () => this.#handleScroll());
+    window.addEventListener(
+      'resize',
+      debounce(() => {
+        this.#defineIsTouch();
+        this.desc.style.display = this.#isTouchDevice ? 'none' : 'block';
+      }, 100)
+    );
     // append HoverDesc element to document
     this.#appendCursorDesc();
+    this.#defineIsTouch();
+  }
+
+  /**
+   * method to define isTouch device
+   */
+  #defineIsTouch() {
+    this.#isTouchDevice = matchMedia('(pointer: coarse)').matches;
   }
 
   /**
@@ -110,6 +129,7 @@ export default class HoverDesc {
    * @param {Event} e - Mouse event
    */
   #handleMouseMove(e) {
+    if (this.#isTouchDevice) return;
     this.cursorX = e.clientX;
     this.cursorY = e.clientY;
     this.#updateDescPosition();
@@ -119,6 +139,7 @@ export default class HoverDesc {
    * event handler for updating the position and visibility of the HoverDesc element of scroll
    */
   #handleScroll() {
+    if (this.#isTouchDevice) return;
     this.#updateDescPosition();
 
     // update visibility of the descContent
@@ -134,6 +155,7 @@ export default class HoverDesc {
    * @param {Event} e - Mouse Event
    */
   #handleMouseEnter({ target }) {
+    if (this.#isTouchDevice) return;
     // check hover area
     const hoverArea = target.closest(`[${this.hoverAreaAttribute}]`);
     if (!hoverArea) return;
@@ -146,6 +168,7 @@ export default class HoverDesc {
    * @param {Event} e - Mouse Event
    */
   #handleMouseLeave({ target }) {
+    if (this.#isTouchDevice) return;
     // check hover area
     const hoverArea = target.closest(`[${this.hoverAreaAttribute}]`);
     if (!hoverArea) return;
